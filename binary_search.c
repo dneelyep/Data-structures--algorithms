@@ -6,12 +6,8 @@ Goal: Implement binary search.
 In binary search, the list must already be sorted.
 Chop the list in half, and determine which side of the
 list the requested item is on [left or right]. Repeat
-until ya find the item. */
+until ya find the item.
 
-
-
-
-/*
 
 Pseudo-code:
 3
@@ -46,20 +42,6 @@ int get_index(list) {
   else:
     return current value
 }
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 int size_of_list( int array[] );
