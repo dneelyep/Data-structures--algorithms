@@ -49,69 +49,67 @@ The dog names are the keys, and the breeds are the values. Note that more than o
 assigned to a given value in this scheme. */
 
 
+// TODO: Clean this mess up.
 #include <stdio.h>
 
 void main() {
-    struct list_element {
-      char key;
-      char *value;
-      struct list_element next;
-      struct list_element prev;
-      /* next = &list_element_x
-	 ^-- set the next pointer to the address of list_element_x */
-    };
+  struct list_element;
 
-    struct value {
-      char v;
-    };
+  struct value {
+    char v;
+  };
 
-    /* Declare all valid values for simplicity. */
-    struct value poodle;
-    struct value labrador;
-    struct value border_collie;
-    poodle.v        = 'P';
-    labrador.v      = 'L';
-    border_collie.v = 'B';
+  struct list_element {
+    char e_key;
+    struct value e_value;
+    struct list_element *next;
+    struct list_element *prev;
+    /* next = &list_element_x
+       ^-- set the next pointer to the address of list_element_x */
+  };
 
-    struct list_element spot;
-    struct list_element fido; // poodle
-    struct list_element rover; // lab
-    struct list_element angel; // border collie
+  // TODO: I use the word value too much. Is screwing things up.
+  /* Declare all valid values for simplicity. */
+  struct value poodle, labrador, border_collie;
+  poodle.v        = 'P';
+  labrador.v      = 'L';
+  border_collie.v = 'B';
 
-    spot.key   = 's';
-    spot.value = &poodle.v;
-    spot.next  = &fido;
-    /* spot.prev  = null; */
+  struct list_element spot, fido, rover, angel;
+  spot.e_key   = 's';
+  spot.e_value = poodle;
+  spot.next  = &fido;
+  /* spot.prev  = null; */
 
-    fido.key   = 'f';
-    fido.value = &poodle.v;
-    fido.next  = &rover;
-    fido.prev  = &spot;
+  fido.e_key   = 'f';
+  fido.e_value = poodle;
+  fido.next  = &rover;
+  fido.prev  = &spot;
 
-    rover.key	= 'r';
-    rover.value = &labrador.v;
-    rover.next	= &angel;
-    rover.prev	= &fido;
+  rover.e_key	= 'r';
+  rover.e_value = labrador;
+  rover.next	= &angel;
+  rover.prev	= &fido;
 
-    angel.key	= 'a';
-    angel.value = &border_collie.v;
-    /* angel.next	= null; */
-    angel.prev	= &rover;
+  angel.e_key	= 'a';
+  angel.e_value = border_collie;
+  /* angel.next	= null; */
+  angel.prev	= &rover;
 
-    printf("Element one, key: %c\n", spot.key);
-    printf("Element one, value: %c\n\n", *spot.value);
+  printf("Element one, key: %c\n", spot.e_key);
+  printf("Element one, value: %c\n\n", spot.e_value.v);
 
-    printf("Element two, key: %c\n", fido.key);
-    printf("Element two, key's address: %c\n\n", *fido.value);
+  printf("Element two, key: %c\n", fido.e_key);
+  printf("Element two, key's address: %c\n\n", fido.e_value.v);
 
-    printf("Element three, key: %c\n", rover.key);
-    printf("Element three, key's address: %c\n\n", *rover.value);
+  printf("Element three, key: %c\n", rover.e_key);
+  printf("Element three, key's address: %c\n\n", rover.e_value.v);
 
-    printf("Element four, key: %c\n", angel.key);
-    printf("Element four, key's address: %c\n\n", *angel.value);
+  printf("Element four, key: %c\n", angel.e_key);
+  printf("Element four, key's address: %c\n\n", angel.e_value.v);
 
-    /* Rover's value, from Fido. */
-    printf("Since Rover comes after Fido, we can get his breed by starting at Fido: %c\n", fido.next.value);
+  /* Rover's value, from Fido. */
+  printf("Since Rover comes after Fido, we can get his breed by starting at Fido: %c\n", fido.next->e_value.v);
 
-    return;
+  return;
 }
